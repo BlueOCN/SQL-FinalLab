@@ -54,4 +54,4 @@ The sample “Classic Models” database consists of the following eight tables:
 | **Offices** | Stores sales office data. |
 
 ### Classic Models Data Model
-![Logo](/imgs/model.png"Data Model")
+![Logo](/imgs/model.png)
