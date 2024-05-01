@@ -43,7 +43,7 @@ Classic Models is a retailer of diecast miniature collectible model cars, motorc
 ### Classic Models Database 
 The sample “Classic Models” database consists of the following eight tables:
 
-| **Customers**         | **Stores customer data**                                |
+| #**Customers**         | #**Stores customer data**                                |
 |:----------------------|:------------------------------------------------------- |
 | **Products** | Stores information about the scale models.              |
 | **ProductLines** | Stores a list of Classic Models’ various product lines. |
