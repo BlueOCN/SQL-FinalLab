@@ -67,10 +67,7 @@ LIMIT 1;
 /*
     P6
     List the country and the number of customers from that country for all countries having just two customers. 
-    List the countries sorted in ascending alphabetical order. Title the column heading for the count of customers as “Customers”.(7)
-
-    **WRONG QUERY** (8) 
-    NORWAY is misspelled causing groupby to produce a repeated Country -> bad count
+    List the countries sorted in ascending alphabetical order. Title the column heading for the count of customers as “Customers”.(8)
 */
 SELECT country, COUNT(customerNumber) AS "Customers"
 FROM customers
