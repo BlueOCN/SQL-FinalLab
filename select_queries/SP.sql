@@ -68,18 +68,50 @@ LIMIT 1;
     P6
     List the country and the number of customers from that country for all countries having just two customers. 
     List the countries sorted in ascending alphabetical order. Title the column heading for the count of customers as “Customers”.(7)
+
+    **WRONG QUERY** (8) 
+    NORWAY is misspelled causing groupby to produce a repeated Country -> bad count
 */
+SELECT country, COUNT(customerNumber) AS "Customers"
+FROM customers
+GROUP BY country
+HAVING COUNT(customerNumber) = 2
+ORDER BY country ASC;
+
+
 /*
     P7
     List the ProductCode, ProductName, and number of orders for the products with exactly 25 orders. 
     Title the column heading for the count of orders as “OrderCount”. (12)
 */
+SELECT
+    p.productCode,
+    p.productName,
+    COUNT(d.orderNumber) AS "OrderCount"
+FROM products p
+    JOIN orderdetails d
+    ON p.productCode = d.productCode
+GROUP BY p.productCode
+HAVING COUNT(d.orderNumber) = 25;
+
+
 /*
     P8
     List the EmployeeNumber, Firstname + Lastname (concatenated into one column in the answer set, 
     separated by a blank and referred to as ‘name’) for all the employees reporting 
     to Diane Murphy or Gerard Bondur. (8)
 */
+SELECT
+    e.employeeNumber,
+    e.firstName || ' ' || e.lastName AS "name"
+FROM employee e
+    JOIN employee m
+    ON e.reportsto = m.employeeNumber
+WHERE
+    (m.lastName = 'Murphy' AND m.firstName = 'Diane') OR
+    (m.lastName = 'Bondur' AND m.firstName = 'Gerard');
+
+
 /*
     P9
     List the EmployeeNumber, LastName, FirstName of the president of the company 
