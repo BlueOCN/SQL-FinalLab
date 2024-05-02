@@ -146,8 +146,8 @@ SELECT
     COUNT(orderNumber)
 FROM orders
 WHERE DATE_PART('year', orderDate) = 2004
-    GROUP BY TO_CHAR(orderDate, 'Month')
-    ORDER BY COUNT(orderNumber) DESC
+GROUP BY TO_CHAR(orderDate, 'Month')
+ORDER BY COUNT(orderNumber) DESC
 LIMIT 1;
 
 
@@ -155,12 +155,57 @@ LIMIT 1;
     P12
     List the firstname, lastname of employees who are Sales Reps who have no assigned customers. (2)
 */
+-- Explicit JOIN
+SELECT
+    firstName,
+    lastName
+FROM employees e
+    LEFT OUTER JOIN customers c
+    ON e.employeeNumber = c.salesRepEmployeeNumber
+WHERE 
+    e.jobTitle LIKE '%Sales Rep%' AND
+    c.customerNumber IS NULL;
+
+-- Subquery
+SELECT
+    firstName,
+    lastName
+FROM employees
+WHERE NOT employeeNumber
+    IN(
+        SELECT DISTINCT salesRepEmployeeNumber
+        FROM customers
+        WHERE NOT salesRepEmployeeNumber IS NULL
+    )
+    AND jobTitle LIKE '%Sales Rep%';
+
 /*
     P13
     List the customername of customers from Switzerland with no orders. (2)
 */
+SELECT c.customerName
+FROM customers c
+    LEFT OUTER JOIN orders o
+    ON c.customerName = o.customerName
+WHERE
+    (o.customerNumber IS NULL) AND
+    (c.country LIKE 'Switzerland');
+
+
 /*
     P14
     List the customername and total quantity of products ordered for customers who have ordered
     more than 1650 products across all their orders. (8)
 */
+SELECT 
+    c.customerNumber,
+    SUM(d.quantityOrdered)
+FROM customers c
+    LEFT OUTER JOIN orders o
+    ON c.customerNumber = o.customerNumber
+        LEFT OUTER JOIN orderDetails d
+        ON o.orderNumber = d.orderNumber
+GROUP BY c.customerNumber
+HAVING SUM(d.quantityOrdered) > 1650
+ORDER BY SUM(d.quantityOrdered);
+
