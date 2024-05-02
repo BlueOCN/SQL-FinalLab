@@ -117,15 +117,40 @@ WHERE
     List the EmployeeNumber, LastName, FirstName of the president of the company 
     (the one employee with no boss.) (1)
 */
+SELECT
+    employeeNumber,
+    lastName,
+    firstName
+FROM employees
+WHERE reportsto is NULL;
+
+
 /*
     P10
     List the ProductName for all products in the “Classic Cars” product line from the 1950’s. (6)
 */
+SELECT productName
+FROM products
+WHERE
+    (productLine LIKE '%Classic_Cars%') AND
+    (productName LIKE '195_ %');
+
+
 /*
     P11
     List the month name and the total number of orders for the month in 2004 in which ClassicModels 
     customers placed the most orders. (1)
 */
+SELECT
+    to_char(orderDate, 'Month') AS "Month",
+    COUNT(orderNumber)
+FROM orders
+WHERE DATE_PART('year', orderDate) = 2004
+    GROUP BY TO_CHAR(orderDate, 'Month')
+    ORDER BY COUNT(orderNumber) DESC
+LIMIT 1;
+
+
 /*
     P12
     List the firstname, lastname of employees who are Sales Reps who have no assigned customers. (2)
