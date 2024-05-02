@@ -88,7 +88,7 @@ SELECT
 FROM products p
     JOIN orderdetails d
     ON p.productCode = d.productCode
-GROUP BY p.productCode
+GROUP BY p.productCode, p.productName
 HAVING COUNT(d.orderNumber) = 25;
 
 
