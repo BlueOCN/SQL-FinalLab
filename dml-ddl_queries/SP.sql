@@ -16,7 +16,7 @@
 CREATE TABLE topCustomers (
     customerNumber INTEGER NOT NULL,
     contactDate DATE NOT NULL,
-    orderTotal REAL NOT NULL
+    orderTotal REAL NOT NULL DEFAULT 0
 );
 
 
